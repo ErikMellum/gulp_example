@@ -1,5 +1,5 @@
 // Include gulp
-var gulp = require('gulp'); 
+var gulp = require('gulp');
 
 // Include Our Plugins
 var jshint = require('gulp-jshint');
@@ -20,7 +20,11 @@ gulp.task('lint', function() {
 // Compile Our Sass
 gulp.task('sass', function() {
     return gulp.src('scss/*.scss')
-        .pipe(sass())
+        .pipe(sass({
+          includePaths: [
+            './bower_components/bootstrap-sass-official/assets/stylesheets'
+          ]
+        }))
         .pipe(gulp.dest('css'))
         .pipe(livereload());
 });
