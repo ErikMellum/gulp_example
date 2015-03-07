@@ -29,8 +29,7 @@ gulp.task('sass', function() {
 gulp.task('coffee', function() {
   gulp.src('coffee/*.coffee')
   .pipe(coffee({bare: true}))
-    .on('error', gutil.log)
-  .pipe(gulp.dest('scripts'));
+  .pipe(gulp.dest('js'));
 });
 
 // Concatenate & Minify JS
@@ -47,12 +46,13 @@ gulp.task('scripts', function() {
 // Watch Files For Changes
 gulp.task('watch', function() {
     livereload.listen();
+    gulp.watch('coffee/*.coffee', ['coffee']);
     gulp.watch('js/*.js', ['lint', 'scripts']);
-    gulp.watch('scss/*.scss', ['sass']);
     gulp.watch('*.html', function(e){
     livereload.changed(e.path);
   });
+    gulp.watch('scss/*.scss', ['sass']);
 });
 
 // Default Task
-gulp.task('default', ['lint', 'sass', 'scripts', 'watch']);
+gulp.task('default', ['lint', 'sass', 'coffee', 'scripts', 'watch']);
